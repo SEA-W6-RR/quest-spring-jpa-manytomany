@@ -34,6 +34,45 @@ public class WizardController {
         return "wizards";
     }
 
+    // Jetzt geht's los !!!
+    @GetMapping("/courses")
+    public String getCourses(Model out) {
+
+        out.addAttribute("courses", courseRepository.findAll());
+
+        return "courses";
+    }
+
+    @GetMapping("/courseWizards")
+    public String getCourseWizards(Model out,
+                                   @RequestParam Long idCourse) {
+
+        Optional<Course> optionalCourse = courseRepository.findById(idCourse);
+        Course course = new Course();
+        if (optionalCourse.isPresent()) {
+            course = optionalCourse.get();
+        }
+        out.addAttribute("course", course);
+        out.addAttribute("allWizards", wizardRepository.findAll());
+
+        // call the method getWizards in Course
+        List<Wizard> wizards = new ArrayList<>();
+        Method method = getMethod(course, "getWizards",
+                new Class[]{});
+        if (method != null) {
+            try {
+                wizards = (List<Wizard>) method.invoke(course);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        out.addAttribute("wizardCourses", wizards);
+
+        return "courseWizards";
+    }
+    // ???????? War's das??????????
+    // Das war's !!!  :-)   :-)   :-)
+
     @GetMapping("/wizard/register")
     public String getRegister(Model out,
                               @RequestParam Long idWizard) {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Wizard List</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 5px;
+        text-align: left;
+    }
+</style>
+<body>
+<h3>Courses:</h3>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${courses}">
+    <td th:text="${course.id}">id</td>
+    <td th:text="${course.name}">name</td>
+    <td><a th:href="@{/courseWizards(idCourse=${course.id})}">wizards</a></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<a href="/">Return to students list</a>
+
+</body>
+</html>
