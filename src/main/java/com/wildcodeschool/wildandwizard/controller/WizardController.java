@@ -66,7 +66,7 @@ public class WizardController {
                 e.printStackTrace();
             }
         }
-        out.addAttribute("wizardCourses", wizards);
+        out.addAttribute("courseWizards", wizards);
 
         return "courseWizards";
     }
